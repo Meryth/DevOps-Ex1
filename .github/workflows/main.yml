@@ -32,8 +32,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Check Outdated Dependencies
+        run: npm outdated
+        
       - name: Run Dependency Audit
-        run: npm-check
+        run: npm audit
 
   build:
     name: Build
