@@ -7,7 +7,11 @@ COPY . .
 RUN npm run build
 
 #Stage 2: Create production image
-FROM nginx:alpine
-COPY --from=build /blog/.next /usr/share/nginx/html
-EXPOSE 4000
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:18
+WORKDIR /blog
+COPY --from=build /blog/.next ./.next
+COPY --from=build /blog/node_modules ./node_modules
+COPY --from=build /blog/package.json ./package.json
+EXPOSE 3000
+
+CMD ["npm", "start"]
