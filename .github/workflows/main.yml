@@ -54,6 +54,7 @@ jobs:
   docker-build:
     name: Docker
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
     steps:
       -
         name: Checkout
